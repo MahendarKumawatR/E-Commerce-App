@@ -27,11 +27,16 @@
             <column autoIncrement="true" name="id" type="BIGSERIAL" >
                 <constraints primaryKey="true" primaryKeyName="product_pkey" />
             </column>
-<!--            <column name=""-->
+            <column name="name" type="VARCHAR(255)" />
+            <column name="code" type="VARCHAR(255)" />
+            <column name="price" type="VARCHAR(255)" />
+            <column name="short_description" type="TEXT" />
+            <column name="description" type="TEXT" />
         </createTable>
 
         <rollback>
             <dropTable tableName="users" />
+            <dropTable tableName="product" />
         </rollback>
     </changeSet>
 </databaseChangeLog>
