@@ -1,10 +1,10 @@
 package com.ecommerce.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Objects;
 
@@ -12,35 +12,42 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "users")
-public class User {
+@Entity
+@Table(name = "users")
+public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String firstName;
 
     private String lastName;
 
     private String fullName;
 
+    @Column(nullable = false)
     private String username;
 
+    @Column(nullable = false)
     private String employeeId;
 
+    @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String mobile;
 
+    @Column(nullable = false)
     private String roles;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(username, user.username) && Objects.equals(employeeId, user.employeeId) && Objects.equals(email, user.email);
+        AppUser appUser = (AppUser) o;
+        return Objects.equals(id, appUser.id) && Objects.equals(firstName, appUser.firstName) && Objects.equals(username, appUser.username) && Objects.equals(employeeId, appUser.employeeId) && Objects.equals(email, appUser.email);
     }
 
     @Override
