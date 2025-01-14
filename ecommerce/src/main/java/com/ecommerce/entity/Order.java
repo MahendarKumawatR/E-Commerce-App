@@ -26,7 +26,7 @@ public class Order {
     private Long id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private User user;
+    private AppUser appUser;
 
     private Date orderDate;
 
