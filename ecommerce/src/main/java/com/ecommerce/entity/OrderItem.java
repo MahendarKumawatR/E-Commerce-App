@@ -26,6 +26,8 @@ public class OrderItem {
 
     private Long productId;
 
+    private Double price;
+
     private Integer qty;
 
     //***** Transient Fields *****//
