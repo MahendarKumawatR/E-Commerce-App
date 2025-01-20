@@ -6,6 +6,7 @@ import com.ecommerce.service.ProductService;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +28,11 @@ public class ProductRestController {
     public ResponseEntity<?> findAll() {
         List<Product> productList = productService.findAll();
         return ResponseEntity.ok(productList);
+    }
+
+    @GetMapping(ApiUrls.URL_PRODUCTS_PRODUCT)
+    public ResponseEntity<?> findOne(@PathVariable(value = "productId") Long id) {
+        return ResponseEntity.ok(productService.findOne(id));
     }
 
 }
