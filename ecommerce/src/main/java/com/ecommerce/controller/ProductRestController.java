@@ -3,20 +3,19 @@ package com.ecommerce.controller;
 import com.ecommerce.ApiUrls;
 import com.ecommerce.entity.Product;
 import com.ecommerce.service.ProductService;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(ApiUrls.VERSION_1 + ApiUrls.ROOT_URL_PRODUCTS)
 public class ProductRestController {
-    private  static final Logger logger = (Logger) LoggerFactory.getLogger(ProductRestController.class);
+    private  static final Logger logger = LoggerFactory.getLogger(ProductRestController.class);
 
     private final ProductService productService;
 
@@ -32,7 +31,17 @@ public class ProductRestController {
 
     @GetMapping(ApiUrls.URL_PRODUCTS_PRODUCT)
     public ResponseEntity<?> findOne(@PathVariable(value = "productId") Long id) {
+        logger.info("findOne: id = {}", id);
         return ResponseEntity.ok(productService.findOne(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody Product product) {
+        logger.info("save");
+
+        product = productService.save(product);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(product.getId()).toUri();
+        return ResponseEntity.created(location).body(product);
     }
 
 }

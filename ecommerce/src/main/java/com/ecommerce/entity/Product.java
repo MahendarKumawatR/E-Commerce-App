@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -42,19 +43,19 @@ public class Product {
     //***** Transient Fields *****//
 
     @Transient
-    private Long categoryId;
+    private List<Long> categoryIds;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(code, product.code) && Objects.equals(price, product.price) && Objects.equals(categoryId, product.categoryId);
+        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(code, product.code) && Objects.equals(price, product.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, code, price, categoryId);
+        return Objects.hash(id, name, code, price);
     }
 
     @Override
@@ -65,8 +66,7 @@ public class Product {
                 ", code='" + code + '\'' +
                 ", price=" + price +
                 ", shortDescription='" + shortDescription + '\'' +
-                ", desc='" + desc + '\'' +
-                ", categoryId=" + categoryId +
+                ", desc='" + desc +
                 '}';
     }
 }
