@@ -2,6 +2,7 @@ package com.ecommerce.controller;
 
 import com.ecommerce.ApiUrls;
 import com.ecommerce.entity.Product;
+import com.ecommerce.exception.ResourceNotFoundException;
 import com.ecommerce.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,4 +45,15 @@ public class ProductRestController {
         return ResponseEntity.created(location).body(product);
     }
 
+    @DeleteMapping(ApiUrls.URL_PRODUCTS_PRODUCT)
+    public ResponseEntity<?> delete(@PathVariable(value = "productId") Long id) {
+        logger.info("delete: id = {}", id);
+
+        if (!productService.isExists(id)) {
+            throw new ResourceNotFoundException("");
+        }
+
+        productService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
